@@ -325,7 +325,7 @@
 
     <section id="releases">
         <h2 class="section-title fade-in">Свежие релизы</h2>
-        <div class="releases-grid">
+        <div class="releases-grid" id="releases-grid">
 
         </div>
     </section>
@@ -367,31 +367,27 @@
         document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
     </script>
 <script>
-  const params = new URLSearchParams(window.location.search);
-  const id = params.get('id');
-
   fetch('releases.json')
-    .then(res => res.json())
+    .then(response => response.json())
     .then(releases => {
-      const release = releases.find(r => r.id === id);
-      if (!release) return;
-
-      // Заполняем заголовок, обложку, артиста
-      document.querySelector('.release-meta h1').textContent = release.title;
-      document.querySelector('.release-meta .artist').textContent = release.artist;
-      document.querySelector('.cover-wrapper img').src = release.cover;
-      
-      // Описание и текст
-      document.querySelector('.description').textContent = release.description;
-      document.querySelector('.lyrics').textContent = release.lyrics;
-
-      // Обновляем ссылки на площадки (предполагаем, что у них есть id или классы)
-      const platformBtns = document.querySelectorAll('.platform-btn');
-      platformBtns.forEach(btn => {
-        const platform = btn.textContent.trim().toLowerCase().split(' ')[0]; // Spotify, Yandex...
-        if (release.links[platform]) btn.href = release.links[platform];
+      const grid = document.getElementById('releases-grid');
+      grid.innerHTML = ''; // очищаем на случай повторного вызова
+      releases.forEach(release => {
+        const card = document.createElement('a');
+        card.href = `release.html?id=${release.id}`;
+        card.className = 'release-card fade-in';
+        card.innerHTML = `
+          <img src="${release.cover}" alt="${release.title}">
+          <div class="release-info">
+            <h3>${release.title}</h3>
+            <p>${release.artist}</p>
+            <div class="date">${release.date}</div>
+          </div>
+        `;
+        grid.appendChild(card);
       });
-    });
+    })
+    .catch(error => console.error('Ошибка загрузки релизов:', error));
 </script>
 </body>
 </html>
