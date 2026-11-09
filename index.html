@@ -367,27 +367,46 @@
         document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
     </script>
 <script>
-  fetch('releases.json')
-    .then(response => response.json())
-    .then(releases => {
-      const grid = document.getElementById('releases-grid');
-      grid.innerHTML = ''; // очищаем на случай повторного вызова
-      releases.forEach(release => {
-        const card = document.createElement('a');
-        card.href = `release.html?id=${release.id}`;
-        card.className = 'release-card fade-in';
-        card.innerHTML = `
-          <img src="${release.cover}" alt="${release.title}">
-          <div class="release-info">
-            <h3>${release.title}</h3>
-            <p>${release.artist}</p>
-            <div class="date">${release.date}</div>
-          </div>
-        `;
-        grid.appendChild(card);
-      });
-    })
-    .catch(error => console.error('Ошибка загрузки релизов:', error));
+fetch('releases.json')
+  .then(response => {
+    if (!response.ok) {
+      throw new Error(`HTTP ${response.status}: файл releases.json не найден`);
+    }
+    return response.json();
+  })
+  .then(data => {
+    // На случай, если JSON — объект с полем releases
+    const releases = Array.isArray(data) ? data : (data.releases || []);
+    
+    if (!Array.isArray(releases)) {
+      throw new Error('releases.json не содержит массив релизов');
+    }
+    
+    const grid = document.getElementById('releases-grid');
+    grid.innerHTML = '';
+    releases.forEach(release => {
+      const card = document.createElement('a');
+      card.href = `release.html?id=${release.id}`;
+      card.className = 'release-card fade-in';
+      card.innerHTML = `
+        <img src="${release.cover}" alt="${release.title}">
+        <div class="release-info">
+          <h3>${release.title}</h3>
+          <p>${release.artist}</p>
+          <div class="date">${release.date}</div>
+        </div>
+      `;
+      grid.appendChild(card);
+    });
+  })
+  .catch(error => {
+    console.error('Ошибка загрузки релизов:', error);
+    // Покажем сообщение на странице, чтобы было видно без консоли
+    const grid = document.getElementById('releases-grid');
+    if (grid) {
+      grid.innerHTML = `<p style="color:#ff3b3b;">Не удалось загрузить релизы: ${error.message}</p>`;
+    }
+  });
 </script>
 </body>
 </html>
