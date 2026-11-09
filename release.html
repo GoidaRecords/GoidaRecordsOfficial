@@ -354,7 +354,9 @@
                 if (Array.isArray(data)) releases = data;
                 else if (data.releases && Array.isArray(data.releases)) releases = data.releases;
                 else releases = [data];
-
+                console.log('id из ссылки:', JSON.stringify(id));
+                console.log('id в JSON:', releases.map(r => JSON.stringify(r.id)));
+                console.log('title в JSON:', releases.map(r => JSON.stringify(r.title)));
                 const release = releases.find(r => r.title === title);
 
                 if (!release) {
