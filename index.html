@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GOIDA RECORDS | Музыкальный лейбл</title>
+    <style>
+        :root {
+            --bg: #0a0a0a;
+            --card-bg: #141414;
+            --accent: #ff3b3b;
+            --accent-glow: rgba(255, 59, 59, 0.4);
+            --text: #e0e0e0;
+            --text-muted: #888;
+            --border: #222;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Анимированный фон */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 20% 50%, rgba(255, 59, 59, 0.08) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 20%, rgba(255, 59, 59, 0.05) 0%, transparent 40%);
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        /* Навигация */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 20px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(10, 10, 10, 0.85);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+            z-index: 100;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            letter-spacing: 2px;
+            color: var(--text);
+            text-decoration: none;
+            text-transform: uppercase;
+        }
+
+        .logo span {
+            color: var(--accent);
+            text-shadow: 0 0 20px var(--accent-glow);
+        }
+
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            margin-left: 30px;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+
+        /* Hero секция */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 20px;
+            position: relative;
+        }
+
+        .hero h1 {
+            font-size: clamp(3rem, 10vw, 7rem);
+            font-weight: 900;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            line-height: 1;
+            margin-bottom: 20px;
+        }
+
+        .hero h1 span {
+            color: var(--accent);
+            text-shadow: 0 0 40px var(--accent-glow);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            max-width: 600px;
+            margin-bottom: 40px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 15px 40px;
+            background: var(--accent);
+            color: #fff;
+            text-decoration: none;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            border-radius: 50px;
+            transition: all 0.3s;
+            box-shadow: 0 0 30px var(--accent-glow);
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 0 50px var(--accent-glow);
+        }
+
+        /* Секции */
+        section {
+            padding: 100px 5%;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 50px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background: var(--accent);
+            box-shadow: 0 0 15px var(--accent-glow);
+        }
+
+        /* Сетка релизов */
+        .releases-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .release-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.3s;
+            cursor: pointer;
+            text-decoration: none;
+            color: var(--text);
+            display: block;
+        }
+
+        .release-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent);
+            box-shadow: 0 10px 40px rgba(255, 59, 59, 0.15);
+        }
+
+        .release-card img {
+            width: 100%;
+            aspect-ratio: 1;
+            object-fit: cover;
+            display: block;
+        }
+
+        .release-info {
+            padding: 20px;
+        }
+
+        .release-info h3 {
+            font-size: 1.2rem;
+            margin-bottom: 5px;
+        }
+
+        .release-info p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .release-info .date {
+            color: var(--accent);
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-top: 10px;
+        }
+
+        /* Артисты */
+        .artists-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 30px;
+        }
+
+        .artist-card {
+            text-align: center;
+        }
+
+        .artist-card img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--border);
+            transition: all 0.3s;
+            margin-bottom: 15px;
+        }
+
+        .artist-card:hover img {
+            border-color: var(--accent);
+            box-shadow: 0 0 30px var(--accent-glow);
+        }
+
+        .artist-card h3 {
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+        }
+
+        .artist-card p {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        /* Подвал */
+        footer {
+            padding: 40px 5%;
+            border-top: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        footer p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .socials a {
+            color: var(--text-muted);
+            text-decoration: none;
+            margin-left: 20px;
+            font-size: 0.9rem;
+            transition: color 0.3s;
+        }
+
+        .socials a:hover {
+            color: var(--accent);
+        }
+
+        /* Скроллбар */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--bg);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--border);
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--accent);
+        }
+
+        /* Анимация появления */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="index.html" class="logo">GOIDA <span>RECORDS</span></a>
+        <div class="nav-links">
+            <a href="#releases">Релизы</a>
+            <a href="#artists">Артисты</a>
+            <a href="#about">О нас</a>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <h1>GOIDA <span>RECORDS</span></h1>
+        <p>Независимый музыкальный лейбл. Мы создаём звук нового поколения.</p>
+        <a href="#releases" class="btn">Слушать</a>
+    </section>
+
+    <section id="releases">
+        <h2 class="section-title fade-in">Свежие релизы</h2>
+        <div class="releases-grid">
+            <!-- Релиз 1 -->
+            <a href="release.html" class="release-card fade-in">
+                <img src="https://picsum.photos/seed/goida1/400/400" alt="Обложка релиза">
+                <div class="release-info">
+                    <h3>НЕОН</h3>
+                    <p>GOIDA x VERTEX</p>
+                    <div class="date">15 марта 2026</div>
+                </div>
+            </a>
+            <!-- Релиз 2 -->
+            <a href="release.html" class="release-card fade-in">
+                <img src="https://picsum.photos/seed/goida2/400/400" alt="Обложка релиза">
+                <div class="release-info">
+                    <h3>ПУЛЬС</h3>
+                    <p>LOWKID</p>
+                    <div class="date">28 февраля 2026</div>
+                </div>
+            </a>
+            <!-- Релиз 3 -->
+            <a href="release.html" class="release-card fade-in">
+                <img src="https://picsum.photos/seed/goida3/400/400" alt="Обложка релиза">
+                <div class="release-info">
+                    <h3>ТИШИНА</h3>
+                    <p>MIRA</p>
+                    <div class="date">10 февраля 2026</div>
+                </div>
+            </a>
+            <!-- Релиз 4 -->
+            <a href="release.html" class="release-card fade-in">
+                <img src="https://picsum.photos/seed/goida4/400/400" alt="Обложка релиза">
+                <div class="release-info">
+                    <h3>ОГОНЬ</h3>
+                    <p>GOIDA x PHARAOH</p>
+                    <div class="date">20 января 2026</div>
+                </div>
+            </a>
+        </div>
+    </section>
+
+    <section id="artists">
+        <h2 class="section-title fade-in">Наши артисты</h2>
+        <div class="artists-grid">
+            <div class="artist-card fade-in">
+                <img src="https://picsum.photos/seed/artist1/300/300" alt="Артист">
+                <h3>VERTEX</h3>
+                <p>Хип-хоп / Трэп</p>
+            </div>
+            <div class="artist-card fade-in">
+                <img src="https://picsum.photos/seed/artist2/300/300" alt="Артист">
+                <h3>LOWKID</h3>
+                <p>Электроника / Хаус</p>
+            </div>
+            <div class="artist-card fade-in">
+                <img src="https://picsum.photos/seed/artist3/300/300" alt="Артист">
+                <h3>MIRA</h3>
+                <p>Инди / Поп</p>
+            </div>
+            <div class="artist-card fade-in">
+                <img src="https://picsum.photos/seed/artist4/300/300" alt="Артист">
+                <h3>PHARAOH</h3>
+                <p>Рэп / Экспериментал</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="about">
+        <h2 class="section-title fade-in">О лейбле</h2>
+        <p class="fade-in" style="max-width: 800px; color: var(--text-muted); font-size: 1.1rem;">
+            GOIDA RECORDS — это независимый музыкальный лейбл, основанный в 2024 году. 
+            Мы работаем с артистами нового поколения, создавая уникальное звучание на стыке жанров. 
+            Наша миссия — давать голос тем, кто не боится экспериментировать.
+        </p>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 GOIDA RECORDS. Все права защищены.</p>
+        <div class="socials">
+            <a href="#">Telegram</a>
+            <a href="#">VK</a>
+            <a href="#">YouTube</a>
+        </div>
+    </footer>
+
+    <script>
+        // Анимация появления при скролле
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+    </script>
+
+</body>
+</html>
