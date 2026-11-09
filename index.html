@@ -29,7 +29,6 @@
             overflow-x: hidden;
         }
 
-        /* Анимированный фон */
         body::before {
             content: '';
             position: fixed;
@@ -84,7 +83,7 @@
             color: var(--accent);
         }
 
-        /* Hero секция */
+        /* Hero */
         .hero {
             height: 100vh;
             display: flex;
@@ -129,6 +128,10 @@
             border-radius: 50px;
             transition: all 0.3s;
             box-shadow: 0 0 30px var(--accent-glow);
+            border: none;
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 1rem;
         }
 
         .btn:hover {
@@ -192,6 +195,7 @@
             aspect-ratio: 1;
             object-fit: cover;
             display: block;
+            background: #1a1a1a;
         }
 
         .release-info {
@@ -215,6 +219,12 @@
             margin-top: 10px;
         }
 
+        .releases-status {
+            color: var(--text-muted);
+            font-size: 1rem;
+            padding: 20px 0;
+        }
+
         /* Артисты */
         .artists-grid {
             display: grid;
@@ -234,6 +244,7 @@
             border: 3px solid var(--border);
             transition: all 0.3s;
             margin-bottom: 15px;
+            background: #1a1a1a;
         }
 
         .artist-card:hover img {
@@ -279,7 +290,6 @@
             color: var(--accent);
         }
 
-        /* Скроллбар */
         ::-webkit-scrollbar {
             width: 8px;
         }
@@ -292,6 +302,17 @@
         }
         ::-webkit-scrollbar-thumb:hover {
             background: var(--accent);
+        }
+
+        /* Анимация появления */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
         }
     </style>
 </head>
@@ -308,27 +329,52 @@
 
     <section class="hero">
         <h1>GOIDA <span>RECORDS</span></h1>
-        <p>Только музыка. Только кайф.</p>
+        <p>Независимый музыкальный лейбл. Мы создаём звук нового поколения.</p>
         <a href="#releases" class="btn">Слушать</a>
     </section>
 
     <section id="releases">
         <h2 class="section-title fade-in">Свежие релизы</h2>
         <div class="releases-grid" id="releases-grid">
-
+            <p class="releases-status">Загрузка релизов...</p>
+        </div>
+        <div style="margin-top: 40px; text-align: center;">
+            <button id="refresh-btn" class="btn">Обновить релизы</button>
         </div>
     </section>
 
     <section id="artists">
         <h2 class="section-title fade-in">Наши артисты</h2>
         <div class="artists-grid">
+            <div class="artist-card fade-in">
+                <img src="https://picsum.photos/seed/artist1/300/300" alt="VERTEX">
+                <h3>VERTEX</h3>
+                <p>Хип-хоп / Трэп</p>
+            </div>
+            <div class="artist-card fade-in">
+                <img src="https://picsum.photos/seed/artist2/300/300" alt="LOWKID">
+                <h3>LOWKID</h3>
+                <p>Электроника / Хаус</p>
+            </div>
+            <div class="artist-card fade-in">
+                <img src="https://picsum.photos/seed/artist3/300/300" alt="MIRA">
+                <h3>MIRA</h3>
+                <p>Инди / Поп</p>
+            </div>
+            <div class="artist-card fade-in">
+                <img src="https://picsum.photos/seed/artist4/300/300" alt="MC Kluev">
+                <h3>MC Kluev</h3>
+                <p>Рэп / Юмор</p>
+            </div>
         </div>
     </section>
 
     <section id="about">
         <h2 class="section-title fade-in">О лейбле</h2>
         <p class="fade-in" style="max-width: 800px; color: var(--text-muted); font-size: 1.1rem;">
-            GOIDA RECORDS — это про музыку, тупую, но крутую. Мы работаем только с самыми лучшими исполнителями.
+            GOIDA RECORDS — это независимый музыкальный лейбл, основанный в 2024 году.
+            Мы работаем с артистами нового поколения, создавая уникальное звучание на стыке жанров.
+            Наша миссия — давать голос тем, кто не боится экспериментировать.
         </p>
     </section>
 
@@ -342,7 +388,7 @@
     </footer>
 
     <script>
-        // Анимация появления при скролле
+        // Наблюдатель для анимации появления
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -351,49 +397,62 @@
             });
         }, { threshold: 0.1 });
 
+        // Подписываем уже существующие .fade-in (заголовки секций и т.д.)
         document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+        // Загрузка и отрисовка релизов
+        function loadReleases() {
+            const grid = document.getElementById('releases-grid');
+            grid.innerHTML = '<p class="releases-status">Загрузка релизов...</p>';
+
+            fetch('releases.json?t=' + Date.now()) // ?t=... обходит кэш браузера
+                .then(res => {
+                    if (!res.ok) throw new Error('HTTP ' + res.status);
+                    return res.json();
+                })
+                .then(data => {
+                    // Поддерживаем массив, объект с полем releases и одиночный объект
+                    let releases;
+                    if (Array.isArray(data)) releases = data;
+                    else if (data.releases && Array.isArray(data.releases)) releases = data.releases;
+                    else releases = [data];
+
+                    grid.innerHTML = '';
+
+                    if (releases.length === 0) {
+                        grid.innerHTML = '<p class="releases-status">Пока нет релизов</p>';
+                        return;
+                    }
+
+                    releases.forEach(release => {
+                        const card = document.createElement('a');
+                        // Ссылка по id (с фолбэком на title, если id вдруг нет)
+                        card.href = `release.html?id=${encodeURIComponent(release.id || release.title)}`;
+                        card.className = 'release-card fade-in';
+                        card.innerHTML = `
+                            <img src="${(release.cover || '').replace(/^\//, '')}" alt="${release.title}">
+                            <div class="release-info">
+                                <h3>${release.title}</h3>
+                                <p>${release.artist || ''}</p>
+                                <div class="date">${release.date || ''}</div>
+                            </div>
+                        `;
+                        grid.appendChild(card);
+                        observer.observe(card); // подписываем новую карточку на анимацию
+                    });
+                })
+                .catch(err => {
+                    console.error('Ошибка загрузки релизов:', err);
+                    grid.innerHTML = `<p class="releases-status" style="color:#ff3b3b;">Не удалось загрузить релизы: ${err.message}</p>`;
+                });
+        }
+
+        // Первичная загрузка
+        loadReleases();
+
+        // Кнопка "Обновить релизы"
+        document.getElementById('refresh-btn').addEventListener('click', loadReleases);
     </script>
-<script>
-fetch('releases.json')
-  .then(response => {
-    if (!response.ok) {
-      throw new Error(`HTTP ${response.status}: файл releases.json не найден`);
-    }
-    return response.json();
-  })
-  .then(data => {
-    // На случай, если JSON — объект с полем releases
-    const releases = Array.isArray(data) ? data : (data.releases || []);
-    
-    if (!Array.isArray(releases)) {
-      throw new Error('releases.json не содержит массив релизов');
-    }
-    
-    const grid = document.getElementById('releases-grid');
-    grid.innerHTML = '';
-    releases.forEach(release => {
-      const card = document.createElement('a');
-      card.href = `release.html?id=${release.id}`;
-      card.className = 'release-card fade-in';
-      card.innerHTML = `
-        <img src="${release.cover}" alt="${release.title}">
-        <div class="release-info">
-          <h3>${release.title}</h3>
-          <p>${release.artist}</p>
-          <div class="date">${release.date}</div>
-        </div>
-      `;
-      grid.appendChild(card);
-    });
-  })
-  .catch(error => {
-    console.error('Ошибка загрузки релизов:', error);
-    // Покажем сообщение на странице, чтобы было видно без консоли
-    const grid = document.getElementById('releases-grid');
-    if (grid) {
-      grid.innerHTML = `<p style="color:#ff3b3b;">Не удалось загрузить релизы: ${error.message}</p>`;
-    }
-  });
-</script>
+
 </body>
 </html>
