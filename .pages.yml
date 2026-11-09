@@ -1,0 +1,47 @@
+media:
+  input: media
+  output: /media
+
+content:
+  - name: releases
+    label: Релизы
+    type: file
+    path: releases.json
+    fields:
+      - name: title
+        label: Название
+        type: string
+      - name: artist
+        label: Исполнитель
+        type: string
+      - name: cover
+        label: Обложка
+        type: image
+      - name: date
+        label: Дата
+        type: string
+      - name: description
+        label: Описание
+        type: text
+      - name: lyrics
+        label: Текст песни
+        type: text
+      - name: links
+        label: Ссылки
+        type: object
+        fields:
+          - name: spotify
+            label: Spotify
+            type: string
+          - name: yandex
+            label: Yandex Music
+            type: string
+          - name: vk
+            label: VK Music
+            type: string
+          - name: apple
+            label: Apple Music
+            type: string
+          - name: youtube
+            label: YouTube Music
+            type: string
