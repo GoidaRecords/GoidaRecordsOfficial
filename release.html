@@ -321,99 +321,96 @@
         </div>
     </footer>
 
-    <script>
-        // Иконки площадок (SVG)
-        console.log('Скрипт release.html запущен');
-        console.log('URL:', window.location.href);
-        const ICONS = {
-            spotify: '<svg viewBox="0 0 24 24"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg>',
-            yandex: '<svg viewBox="0 0 24 24"><path d="M12 0C5.376 0 0 5.376 0 12s5.376 12 12 12 12-5.376 12-12S18.624 0 12 0zm2.16 18.24h-2.4v-4.56c-1.2.48-2.4.84-3.6.96v-2.28c1.2-.24 2.4-.6 3.6-1.08V6h2.4v12.24z"/></svg>',
-            vk: '<svg viewBox="0 0 24 24"><path d="M12 0C5.376 0 0 5.376 0 12s5.376 12 12 12 12-5.376 12-12S18.624 0 12 0zm5.28 15.6c-.48.6-1.08 1.2-1.68 1.68-.6.48-1.2.72-1.8.72-.72 0-1.32-.24-1.8-.6-.48-.36-.84-.84-1.08-1.44-.24-.6-.36-1.32-.36-2.04 0-1.2.24-2.28.72-3.24.48-.96 1.08-1.68 1.8-2.16.72-.48 1.44-.72 2.16-.72.6 0 1.08.12 1.44.36.36.24.6.6.72 1.08.12.48.12 1.08 0 1.68-.12.6-.36 1.2-.72 1.68-.36.48-.84.84-1.32 1.08-.48.24-1.08.36-1.68.36h-.6v1.2c0 .6.12 1.08.36 1.44.24.36.6.6 1.08.6.48 0 .96-.24 1.44-.72.48-.48.84-1.08 1.08-1.68h1.8c-.24.84-.72 1.56-1.32 2.28z"/></svg>',
-            apple: '<svg viewBox="0 0 24 24"><path d="M12 0C5.376 0 0 5.376 0 12s5.376 12 12 12 12-5.376 12-12S18.624 0 12 0zm5.52 16.8c0 .6-.48 1.08-1.08 1.08h-9.6c-.6 0-1.08-.48-1.08-1.08V9.6c0-.6.48-1.08 1.08-1.08h9.6c.6 0 1.08.48 1.08 1.08v7.2zM9.6 8.4h4.8v1.2H9.6V8.4zm0 2.4h4.8v1.2H9.6v-1.2zm0 2.4h4.8V14.4H9.6v-1.2z"/></svg>',
-            youtube: '<svg viewBox="0 0 24 24"><path d="M12 0C5.376 0 0 5.376 0 12s5.376 12 12 12 12-5.376 12-12S18.624 0 12 0zm0 19.2c-3.96 0-7.2-3.24-7.2-7.2s3.24-7.2 7.2-7.2 7.2 3.24 7.2 7.2-3.24 7.2-7.2 7.2zm-1.2-10.8l4.8 3.6-4.8 3.6v-7.2z"/></svg>'
-        };
+<script>
+    // Иконки площадок (SVG)
+    const ICONS = {
+        spotify: '<svg viewBox="0 0 24 24"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg>',
+        yandex: '<svg viewBox="0 0 24 24"><path d="M12 0C5.376 0 0 5.376 0 12s5.376 12 12 12 12-5.376 12-12S18.624 0 12 0zm2.16 18.24h-2.4v-4.56c-1.2.48-2.4.84-3.6.96v-2.28c1.2-.24 2.4-.6 3.6-1.08V6h2.4v12.24z"/></svg>',
+        vk: '<svg viewBox="0 0 24 24"><path d="M12 0C5.376 0 0 5.376 0 12s5.376 12 12 12 12-5.376 12-12S18.624 0 12 0zm5.28 15.6c-.48.6-1.08 1.2-1.68 1.68-.6.48-1.2.72-1.8.72-.72 0-1.32-.24-1.8-.6-.48-.36-.84-.84-1.08-1.44-.24-.6-.36-1.32-.36-2.04 0-1.2.24-2.28.72-3.24.48-.96 1.08-1.68 1.8-2.16.72-.48 1.44-.72 2.16-.72.6 0 1.08.12 1.44.36.36.24.6.6.72 1.08.12.48.12 1.08 0 1.68-.12.6-.36 1.2-.72 1.68-.36.48-.84.84-1.32 1.08-.48.24-1.08.36-1.68.36h-.6v1.2c0 .6.12 1.08.36 1.44.24.36.6.6 1.08.6.48 0 .96-.24 1.44-.72.48-.48.84-1.08 1.08-1.68h1.8c-.24.84-.72 1.56-1.32 2.28z"/></svg>',
+        apple: '<svg viewBox="0 0 24 24"><path d="M12 0C5.376 0 0 5.376 0 12s5.376 12 12 12 12-5.376 12-12S18.624 0 12 0zm5.52 16.8c0 .6-.48 1.08-1.08 1.08h-9.6c-.6 0-1.08-.48-1.08-1.08V9.6c0-.6.48-1.08 1.08-1.08h9.6c.6 0 1.08.48 1.08 1.08v7.2zM9.6 8.4h4.8v1.2H9.6V8.4zm0 2.4h4.8v1.2H9.6v-1.2zm0 2.4h4.8V14.4H9.6v-1.2z"/></svg>',
+        youtube: '<svg viewBox="0 0 24 24"><path d="M12 0C5.376 0 0 5.376 0 12s5.376 12 12 12 12-5.376 12-12S18.624 0 12 0zm0 19.2c-3.96 0-7.2-3.24-7.2-7.2s3.24-7.2 7.2-7.2 7.2 3.24 7.2 7.2-3.24 7.2-7.2 7.2zm-1.2-10.8l4.8 3.6-4.8 3.6v-7.2z"/></svg>'
+    };
 
-        const PLATFORM_LABELS = {
-            spotify: 'Spotify',
-            yandex: 'Yandex Music',
-            vk: 'VK Music',
-            apple: 'Apple Music',
-            youtube: 'YouTube Music'
-        };
+    const PLATFORM_LABELS = {
+        spotify: 'Spotify',
+        yandex: 'Yandex Music',
+        vk: 'VK Music',
+        apple: 'Apple Music',
+        youtube: 'YouTube Music'
+    };
 
-        // Получаем название трека из ссылки (?id=...)
-        const params = new URLSearchParams(window.location.search);
-        const id = params.get('id');
+    // Получаем ID релиза из ссылки (?id=...)
+    const params = new URLSearchParams(window.location.search);
+    const id = params.get('id');
 
-        fetch('releases.json')
-            .then(res => {
-                if (!res.ok) throw new Error('HTTP ' + res.status);
-                return res.json();
-            })
-            .then(data => {
-                // Поддерживаем массив, объект с полем releases и одиночный объект
-                let releases;
-                if (Array.isArray(data)) releases = data;
-                else if (data.releases && Array.isArray(data.releases)) releases = data.releases;
-                else releases = [data];
-                console.log('id из ссылки:', JSON.stringify(id));
-                console.log('id в JSON:', releases.map(r => JSON.stringify(r.id)));
-                console.log('title в JSON:', releases.map(r => JSON.stringify(r.title)));
-                const release = releases.find(r => r.title === title);
+    fetch('releases.json')
+        .then(res => {
+            if (!res.ok) throw new Error('HTTP ' + res.status);
+            return res.json();
+        })
+        .then(data => {
+            // Поддерживаем массив, объект с полем releases и одиночный объект
+            let releases;
+            if (Array.isArray(data)) releases = data;
+            else if (data.releases && Array.isArray(data.releases)) releases = data.releases;
+            else releases = [data];
 
-                if (!release) {
-                    document.querySelector('.release-page').innerHTML =
-                        '<p style="color:#ff3b3b;text-align:center;padding:100px 20px;">Релиз не найден</p>';
-                    return;
-                }
+            // Ищем релиз по ID (с запасным вариантом поиска по названию)
+            const release = releases.find(r => r.id === id || r.title === id);
 
-                // Заголовок страницы
-                document.title = `${release.title} — ${release.artist} | GOIDA RECORDS`;
-
-                // Обложка (убираем ведущий слэш, чтобы путь был относительным)
-                const cover = (release.cover || '').replace(/^\//, '');
-                const coverImg = document.getElementById('release-cover');
-                coverImg.src = cover;
-                coverImg.alt = release.title;
-
-                // Метаданные
-                document.getElementById('release-title').textContent = release.title;
-                document.getElementById('release-artist').textContent = release.artist || '';
-                document.getElementById('release-description').textContent = release.description || '';
-                document.getElementById('release-type').textContent = release.date || 'Сингл';
-
-                // Текст песни (с сохранением переносов строк)
-                document.getElementById('release-lyrics').textContent = release.lyrics || '';
-
-                // Ссылки на площадки
-                const container = document.getElementById('release-platforms');
-                container.innerHTML = '';
-
-                if (release.links) {
-                    Object.keys(PLATFORM_LABELS).forEach(key => {
-                        const url = release.links[key];
-                        if (!url || url === 'Пока нет' || url.trim() === '') return;
-
-                        const a = document.createElement('a');
-                        a.href = url;
-                        a.target = '_blank';
-                        a.rel = 'noopener noreferrer';
-                        a.className = 'platform-btn';
-                        a.innerHTML = (ICONS[key] || '') + ' ' + PLATFORM_LABELS[key];
-                        container.appendChild(a);
-                    });
-                }
-
-                if (container.children.length === 0) {
-                    container.innerHTML = '<p style="color:#888;">Ссылки на площадки скоро появятся</p>';
-                }
-            })
-            .catch(err => {
-                console.error('Ошибка загрузки релиза:', err);
+            if (!release) {
                 document.querySelector('.release-page').innerHTML =
-                    '<p style="color:#ff3b3b;text-align:center;padding:100px 20px;">Не удалось загрузить релиз</p>';
-            });
-    </script>
+                    '<p style="color:#ff3b3b;text-align:center;padding:100px 20px;">Релиз не найден</p>';
+                return;
+            }
+
+            // Заголовок страницы
+            document.title = `${release.title} — ${release.artist} | GOIDA RECORDS`;
+
+            // Обложка (убираем ведущий слэш, чтобы путь был относительным)
+            const cover = (release.cover || '').replace(/^\//, '');
+            const coverImg = document.getElementById('release-cover');
+            coverImg.src = cover;
+            coverImg.alt = release.title;
+
+            // Метаданные
+            document.getElementById('release-title').textContent = release.title;
+            document.getElementById('release-artist').textContent = release.artist || '';
+            document.getElementById('release-description').textContent = release.description || '';
+            document.getElementById('release-type').textContent = release.date || 'Сингл';
+
+            // Текст песни (с сохранением переносов строк)
+            document.getElementById('release-lyrics').textContent = release.lyrics || '';
+
+            // Ссылки на площадки
+            const container = document.getElementById('release-platforms');
+            container.innerHTML = '';
+
+            if (release.links) {
+                Object.keys(PLATFORM_LABELS).forEach(key => {
+                    const url = release.links[key];
+                    if (!url || url === 'Пока нет' || url.trim() === '') return;
+
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.target = '_blank';
+                    a.rel = 'noopener noreferrer';
+                    a.className = 'platform-btn';
+                    a.innerHTML = (ICONS[key] || '') + ' ' + PLATFORM_LABELS[key];
+                    container.appendChild(a);
+                });
+            }
+
+            if (container.children.length === 0) {
+                container.innerHTML = '<p style="color:#888;">Ссылки на площадки скоро появятся</p>';
+            }
+        })
+        .catch(err => {
+            console.error('Ошибка загрузки релиза:', err);
+            document.querySelector('.release-page').innerHTML =
+                '<p style="color:#ff3b3b;text-align:center;padding:100px 20px;">Не удалось загрузить релиз</p>';
+        });
+</script>
 
 </body>
 </html>
