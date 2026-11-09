@@ -8,9 +8,14 @@ content:
     type: file
     path: releases.json
     fields:
+      - name: id
+        label: ID (латиницей, без пробелов)
+        type: string
+        required: true
       - name: title
         label: Название
         type: string
+        required: true
       - name: artist
         label: Исполнитель
         type: string
