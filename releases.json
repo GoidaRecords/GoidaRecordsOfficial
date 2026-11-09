@@ -1,28 +1,14 @@
-[
-  {
-    "id": "neon",
-    "title": "НЕОН",
-    "artist": "GOIDA x VERTEX",
-    "cover": "https://picsum.photos/seed/goida1/400/400",
-    "date": "15 марта 2026",
-    "description": "Новый совместный трек...",
-    "lyrics": "Текст песни...",
-    "links": {
-      "spotify": "https://open.spotify.com",
-      "yandex": "https://music.yandex.ru",
-      "vk": "https://vk.com/music",
-      "apple": "https://music.apple.com",
-      "youtube": "https://music.youtube.com"
-    }
-  },
-  {
-    "id": "puls",
-    "title": "ПУЛЬС",
-    "artist": "LOWKID",
-    "cover": "https://picsum.photos/seed/goida2/400/400",
-    "date": "28 февраля 2026",
-    "description": "Описание...",
-    "lyrics": "...",
-    "links": { "...": "..." }
+{
+  "artist": "test",
+  "cover": "/media/InShot_20261105_014005119.jpg",
+  "date": "05.01.2027",
+  "description": "Круто",
+  "lyrics": "lalala",
+  "links": {
+    "spotify": "s",
+    "yandex": "y",
+    "vk": "vk",
+    "apple": "a",
+    "youtube": "yt"
   }
-]
+}
