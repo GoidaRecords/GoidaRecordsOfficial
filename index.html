@@ -421,6 +421,32 @@
 
         document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
     </script>
+<script>
+  const params = new URLSearchParams(window.location.search);
+  const id = params.get('id');
 
+  fetch('releases.json')
+    .then(res => res.json())
+    .then(releases => {
+      const release = releases.find(r => r.id === id);
+      if (!release) return;
+
+      // Заполняем заголовок, обложку, артиста
+      document.querySelector('.release-meta h1').textContent = release.title;
+      document.querySelector('.release-meta .artist').textContent = release.artist;
+      document.querySelector('.cover-wrapper img').src = release.cover;
+      
+      // Описание и текст
+      document.querySelector('.description').textContent = release.description;
+      document.querySelector('.lyrics').textContent = release.lyrics;
+
+      // Обновляем ссылки на площадки (предполагаем, что у них есть id или классы)
+      const platformBtns = document.querySelectorAll('.platform-btn');
+      platformBtns.forEach(btn => {
+        const platform = btn.textContent.trim().toLowerCase().split(' ')[0]; // Spotify, Yandex...
+        if (release.links[platform]) btn.href = release.links[platform];
+      });
+    });
+</script>
 </body>
 </html>
