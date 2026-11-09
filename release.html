@@ -343,7 +343,7 @@
 
         // Получаем название трека из ссылки (?id=...)
         const params = new URLSearchParams(window.location.search);
-        const title = params.get('id');
+        const id = params.get('id');
 
         fetch('releases.json')
             .then(res => {
