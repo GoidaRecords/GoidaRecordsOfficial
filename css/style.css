@@ -508,13 +508,25 @@ footer p {
     .lyrics-section {
         padding: 3rem;
     }
-    .nav-links {
-        display: none;
-    }
     .release-page {
         padding-top: 10rem;
     }
     .section-title {
         margin-bottom: 3rem;
+    }
+    
+    /* --- ИЗМЕНЕНИЯ ДЛЯ НАВИГАЦИИ --- */
+    .nav-links {
+        display: flex;
+        gap: 1.5rem; /* Уменьшаем расстояние между ссылками */
+    }
+    
+    .nav-links a {
+        margin-left: 0; /* Убираем старый отступ */
+        font-size: 1.2rem; /* Делаем шрифт чуть меньше */
+    }
+    
+    .logo {
+        font-size: 1.6rem; /* Чуть уменьшаем логотип, чтобы всё влезло */
     }
 }
