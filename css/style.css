@@ -1,0 +1,520 @@
+/* =========================================
+   БАЗОВЫЕ НАСТРОЙКИ И ПЕРЕМЕННЫЕ
+   ========================================= */
+:root {
+    --bg: #0a0a0a;
+    --card-bg: #141414;
+    --accent: #ff3b3b;
+    --accent-glow: rgba(255, 59, 59, 0.4);
+    --text: #e0e0e0;
+    --text-muted: #888;
+    --border: #222;
+    
+    /* Базовые размеры */
+    --container-width: 90%;
+    --max-width: 75rem; /* ~1200px */
+    --nav-height: 8rem;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+}
+
+html {
+    /* Делаем 1rem = 10px для удобства расчетов (10/16 = 62.5%) */
+    font-size: 62.5%; 
+}
+
+body {
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    overflow-x: hidden;
+    min-height: 100vh;
+    font-size: 1.6rem; /* Возвращаем стандартный размер текста (16px) */
+}
+
+/* Анимированный фон */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: radial-gradient(circle at 20% 50%, rgba(255, 59, 59, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 59, 59, 0.05) 0%, transparent 40%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+/* =========================================
+   НАВИГАЦИЯ (ШАПКА)
+   ========================================= */
+nav {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: var(--nav-height);
+    padding: 0 5%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(10, 10, 10, 0.85);
+    backdrop-filter: blur(10px);
+    border-bottom: 0.1rem solid var(--border);
+    z-index: 100;
+}
+
+.logo {
+    font-size: 2rem;
+    font-weight: 800;
+    letter-spacing: 0.2rem;
+    color: var(--text);
+    text-decoration: none;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+}
+
+.logo span {
+    color: var(--accent);
+    text-shadow: 0 0 2rem var(--accent-glow);
+}
+
+.logo img {
+    height: 8rem;
+    width: auto;
+    display: block;
+    filter: brightness(0) invert(1); 
+}
+
+.nav-links a, .back-link {
+    color: var(--text-muted);
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 2rem;
+    transition: color 0.3s;
+}
+
+.nav-links a {
+    margin-left: 3rem;
+}
+
+.nav-links a:hover, .back-link:hover {
+    color: var(--accent);
+}
+
+/* =========================================
+   ОБЩИЕ КОМПОНЕНТЫ (Кнопки, заголовки)
+   ========================================= */
+.btn {
+    display: inline-block;
+    padding: 1.5rem 4rem;
+    background: var(--accent);
+    color: #fff;
+    text-decoration: none;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.2rem;
+    border-radius: 5rem;
+    transition: all 0.3s;
+    box-shadow: 0 0 3rem var(--accent-glow);
+    border: none;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 1.6rem;
+}
+
+.btn:hover {
+    transform: translateY(-0.3rem);
+    box-shadow: 0 0 5rem var(--accent-glow);
+}
+
+section {
+    padding: 10rem 5%;
+}
+
+.section-title {
+    font-size: clamp(2.2rem, 4vw, 3rem); /* Адаптивный размер */
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.3rem;
+    margin-bottom: 5rem;
+    position: relative;
+    display: inline-block;
+}
+
+.section-title::after {
+    content: '';
+    position: absolute;
+    bottom: -1rem;
+    left: 0;
+    width: 6rem;
+    height: 0.4rem;
+    background: var(--accent);
+    box-shadow: 0 0 1.5rem var(--accent-glow);
+}
+
+/* =========================================
+   ГЛАВНАЯ СТРАНИЦА (Hero, Релизы, Артисты)
+   ========================================= */
+.hero {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 0 5%;
+    position: relative;
+}
+
+.hero h1 {
+    font-size: clamp(4rem, 10vw, 8rem);
+    font-weight: 900;
+    letter-spacing: 0.5rem;
+    text-transform: uppercase;
+    line-height: 1.1;
+    margin-bottom: 2rem;
+}
+
+.hero h1 span {
+    color: var(--accent);
+    text-shadow: 0 0 4rem var(--accent-glow);
+}
+
+.hero p {
+    font-size: 1.8rem;
+    color: var(--text-muted);
+    max-width: 60rem;
+    margin-bottom: 4rem;
+}
+
+.releases-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(26rem, 1fr));
+    gap: 3rem;
+}
+
+.release-card {
+    background: var(--card-bg);
+    border: 0.1rem solid var(--border);
+    border-radius: 1.2rem;
+    overflow: hidden;
+    transition: all 0.3s;
+    cursor: pointer;
+    text-decoration: none;
+    color: var(--text);
+    display: block;
+}
+
+.release-card:hover {
+    transform: translateY(-0.5rem);
+    border-color: var(--accent);
+    box-shadow: 0 1rem 4rem rgba(255, 59, 59, 0.15);
+}
+
+.release-card img {
+    width: 100%;
+    aspect-ratio: 1;
+    object-fit: cover;
+    display: block;
+    background: #1a1a1a;
+}
+
+.release-info {
+    padding: 2rem;
+}
+
+.release-info h3 {
+    font-size: 1.8rem;
+    margin-bottom: 0.5rem;
+}
+
+.release-info p {
+    color: var(--text-muted);
+    font-size: 1.4rem;
+}
+
+.release-info .date {
+    color: var(--accent);
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-top: 1rem;
+}
+
+.releases-status {
+    color: var(--text-muted);
+    font-size: 1.6rem;
+    padding: 2rem 0;
+}
+
+.artists-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(18rem, 1fr));
+    gap: 3rem;
+}
+
+.artist-card {
+    text-align: center;
+}
+
+.artist-card img {
+    width: 15rem;
+    height: 15rem;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 0.3rem solid var(--border);
+    transition: all 0.3s;
+    margin-bottom: 1.5rem;
+    background: #1a1a1a;
+}
+
+.artist-card:hover img {
+    border-color: var(--accent);
+    box-shadow: 0 0 3rem var(--accent-glow);
+}
+
+.artist-card h3 {
+    font-size: 1.6rem;
+    margin-bottom: 0.5rem;
+}
+
+.artist-card p {
+    color: var(--text-muted);
+    font-size: 1.3rem;
+}
+
+/* =========================================
+   СТРАНИЦА РЕЛИЗА
+   ========================================= */
+.release-page {
+    padding: 14rem 5% 8rem;
+    max-width: var(--max-width);
+    margin: 0 auto;
+    width: var(--container-width);
+}
+
+.release-header {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6rem;
+    align-items: center;
+    margin-bottom: 8rem;
+}
+
+.cover-wrapper {
+    position: relative;
+}
+
+.cover-wrapper img {
+    width: 100%;
+    border-radius: 1.6rem;
+    box-shadow: 0 2rem 6rem rgba(0, 0, 0, 0.6), 0 0 6rem rgba(255, 59, 59, 0.1);
+    display: block;
+    aspect-ratio: 1;
+    object-fit: cover;
+    background: #1a1a1a;
+}
+
+.release-meta h1 {
+    font-size: clamp(3rem, 5vw, 4.5rem);
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.3rem;
+    line-height: 1.1;
+    margin-bottom: 1rem;
+}
+
+.release-meta .artist {
+    font-size: 1.8rem;
+    color: var(--text-muted);
+    margin-bottom: 2rem;
+}
+
+.release-meta .type {
+    display: inline-block;
+    padding: 0.6rem 1.6rem;
+    background: var(--accent);
+    color: #fff;
+    font-size: 1.2rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.2rem;
+    border-radius: 2rem;
+    margin-bottom: 3rem;
+}
+
+.release-meta .description {
+    color: var(--text-muted);
+    margin-bottom: 4rem;
+    font-size: 1.6rem;
+}
+
+.platforms-title {
+    font-size: 1.4rem;
+    text-transform: uppercase;
+    letter-spacing: 0.2rem;
+    color: var(--text-muted);
+    margin-bottom: 2rem;
+}
+
+.platforms {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+}
+
+.platform-btn {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.2rem 2.4rem;
+    background: var(--card-bg);
+    border: 0.1rem solid var(--border);
+    border-radius: 5rem;
+    color: var(--text);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1.4rem;
+    transition: all 0.3s;
+}
+
+.platform-btn:hover {
+    border-color: var(--accent);
+    background: rgba(255, 59, 59, 0.1);
+    transform: translateY(-0.2rem);
+    box-shadow: 0 0.5rem 2rem rgba(255, 59, 59, 0.2);
+}
+
+.platform-btn .platform-icon {
+    width: 2rem;
+    height: 2rem;
+    object-fit: contain;
+    filter: brightness(0) invert(1); 
+}
+
+.platform-btn:hover .platform-icon {
+    filter: brightness(0) invert(1) sepia(1) saturate(10000%) hue-rotate(330deg);
+}
+
+.lyrics-section {
+    background: var(--card-bg);
+    border: 0.1rem solid var(--border);
+    border-radius: 1.6rem;
+    padding: 5rem;
+}
+
+.lyrics-section h2 {
+    font-size: 2.2rem;
+    text-transform: uppercase;
+    letter-spacing: 0.3rem;
+    margin-bottom: 3rem;
+    position: relative;
+    display: inline-block;
+}
+
+.lyrics-section h2::after {
+    content: '';
+    position: absolute;
+    bottom: -0.8rem;
+    left: 0;
+    width: 4rem;
+    height: 0.3rem;
+    background: var(--accent);
+    box-shadow: 0 0 1rem var(--accent-glow);
+}
+
+.lyrics {
+    white-space: pre-line;
+    font-size: 1.6rem;
+    line-height: 2;
+    color: var(--text-muted);
+}
+
+/* =========================================
+   ПОДВАЛ (FOOTER)
+   ========================================= */
+footer {
+    padding: 4rem 5%;
+    border-top: 0.1rem solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 2rem;
+}
+
+footer p {
+    color: var(--text-muted);
+    font-size: 1.4rem;
+}
+
+.socials a {
+    color: var(--text-muted);
+    text-decoration: none;
+    margin-left: 2rem;
+    font-size: 1.4rem;
+    transition: color 0.3s;
+}
+
+.socials a:hover {
+    color: var(--accent);
+}
+
+/* =========================================
+   СКРОЛЛБАР И АНИМАЦИИ
+   ========================================= */
+::-webkit-scrollbar {
+    width: 0.8rem;
+}
+::-webkit-scrollbar-track {
+    background: var(--bg);
+}
+::-webkit-scrollbar-thumb {
+    background: var(--border);
+    border-radius: 0.4rem;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: var(--accent);
+}
+
+.fade-in {
+    opacity: 0;
+    transform: translateY(3rem);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* =========================================
+   АДАПТИВНОСТЬ (Мобильные устройства)
+   ========================================= */
+@media (max-width: 768px) {
+    .release-header {
+        grid-template-columns: 1fr;
+        gap: 4rem;
+        text-align: center;
+    }
+    .platforms {
+        justify-content: center;
+    }
+    .lyrics-section {
+        padding: 3rem;
+    }
+    .nav-links {
+        display: none;
+    }
+    .release-page {
+        padding-top: 10rem;
+    }
+    .section-title {
+        margin-bottom: 3rem;
+    }
+}
