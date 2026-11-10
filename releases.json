@@ -14,21 +14,5 @@
       "apple": "Пока нет",
       "youtube": "https://www.youtube.com/watch?v=2Go-9J92F88&t=58s"
     }
-  },
-  {
-  "id": "t02",
-  "title": "Test",
-  "artist": "MC Kluev",
-  "cover": "media/IMG_20260903_112954_824.jpg",
-  "date": "05.01.2027",
-  "description": "cool",
-  "lyrics": "gg",
-  "links": {
-    "spotify": "g",
-    "yandex": "g",
-    "vk": "g",
-    "apple": "g",
-    "youtube": "g"
   }
-}
 ]
