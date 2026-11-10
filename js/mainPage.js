@@ -8,32 +8,6 @@ const observer = new IntersectionObserver((entries) => {
 
 document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
 
-function renderArtists(releases) {
-    const artistsGrid = document.querySelector('.artists-grid');
-    if (!artistsGrid) return;
-
-    artistsGrid.innerHTML = ''; 
-
-    const uniqueArtists = [...new Set(releases.map(r => r.artist))];
-
-    uniqueArtists.forEach((artistName, index) => {
-        if (!artistName) return; 
-
-        const card = document.createElement('div');
-        card.className = 'artist-card fade-in';
-        
-        const imgUrl = `https://picsum.photos/seed/artist_${index}/300/300`;
-        
-        card.innerHTML = `
-            <img src="${imgUrl}" alt="${artistName}">
-            <h3>${artistName}</h3>
-            <p>Исполнитель GOIDA RECORDS</p>
-        `;
-        artistsGrid.appendChild(card);
-        observer.observe(card);
-    });
-}
-
 function loadReleases() {
     const grid = document.getElementById('releases-grid');
     if (!grid) return;
@@ -74,7 +48,6 @@ function loadReleases() {
                 observer.observe(card);
             });
 
-            renderArtists(releases);
         })
         .catch(err => {
             console.error('Ошибка загрузки релизов:', err);
