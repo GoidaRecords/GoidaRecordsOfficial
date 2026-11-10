@@ -47,7 +47,7 @@
             position: fixed;
             top: 0;
             width: 100%;
-            padding: 20px 5%;
+            padding: 5px 5%;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -64,8 +64,15 @@
             color: var(--text);
             text-decoration: none;
             text-transform: uppercase;
+            display: flex;
+            align-items: center;
         }
-
+        .logo img {
+            height: 80px; /* Здесь задайте нужную высоту логотипа (например, 35-45px) */
+            width: auto;  /* Ширина подстроится автоматически */
+            display: block;
+            filter: brightness(0) invert(1); 
+        }
         .logo span {
             color: var(--accent);
             text-shadow: 0 0 20px var(--accent-glow);
@@ -286,8 +293,10 @@
 <body>
 
     <nav>
-        <a href="index.html" class="logo">GOIDA <span>RECORDS</span></a>
-        <a href="index.html" class="back-link">← Назад на главную</a>
+            <a href="index.html" class="logo">
+                <img src="media\logo.svg" alt="GOIDA RECORDS">
+            </a> 
+        <a href="index.html" class="back-link">← Назад</a>
     </nav>
 
     <div class="release-page">
