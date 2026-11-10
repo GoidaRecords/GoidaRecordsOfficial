@@ -1,9 +1,9 @@
 const ICON_PATHS = {
-    spotify: 'icons/spotify.svg',
-    yandex: 'icons/yandex.svg',
-    vk: 'icons/vk.svg',
-    apple: 'icons/apple.svg',
-    youtube: 'icons/youtube.svg'
+    spotify: 'media/spotify.svg',
+    yandex: 'media/yandex.svg',
+    vk: 'media/vk.svg',
+    apple: 'media/apple.svg',
+    youtube: 'media/youtube.svg'
 };
 
 const PLATFORM_LABELS = {
