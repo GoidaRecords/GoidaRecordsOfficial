@@ -36,7 +36,43 @@ document.addEventListener('DOMContentLoaded', () => {
                     '<p style="color:#ff3b3b;text-align:center;padding:100px 20px;">Релиз не найден</p>';
                 return;
             }
+            document.title = `${release.title} — ${release.artist} | GOIDA RECORDS`;
+            
+            // 1. Получаем текущий URL страницы
+            const currentUrl = window.location.href;
 
+            // 2. Формируем правильный путь к обложке
+            // Берем путь из JSON, убираем ведущий слэш, если он есть
+            let rawCover = (release.cover || '').replace(/^\//, ''); 
+            
+            // Если в JSON путь уже содержит "media/", не добавляем его повторно
+            if (!rawCover.startsWith('media/')) {
+                rawCover = 'media/' + rawCover;
+            }
+
+            // Собираем полный абсолютный URL (обязательно для Telegram)
+            const coverUrl = new URL(rawCover, window.location.origin).href;
+
+            const description = release.description || 'Слушайте новый релиз на GOIDA RECORDS';
+
+            // 3. Функция для создания или обновления мета-тегов
+            function setMeta(property, content) {
+                let el = document.querySelector(`meta[property="${property}"]`);
+                if (!el) {
+                    el = document.createElement('meta');
+                    el.setAttribute('property', property);
+                    document.head.appendChild(el);
+                }
+                el.setAttribute('content', content);
+            }
+
+            // 4. Устанавливаем теги Open Graph
+            setMeta('og:type', 'music.song');
+            setMeta('og:url', currentUrl);
+            setMeta('og:title', `${release.title} — ${release.artist}`);
+            setMeta('og:description', description);
+            setMeta('og:image', coverUrl);
+            
             document.title = `${release.title} — ${release.artist} | GOIDA RECORDS`;
 
             const cover = (release.cover || '').replace(/^\//, '');
