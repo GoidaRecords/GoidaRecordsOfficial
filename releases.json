@@ -14,5 +14,21 @@
       "apple": "",
       "youtube": ""
     }
+  },
+    {
+    "id": "nikitos",
+    "title": "NIKITOS PRIME",
+    "artist": "Lil Dro4il",
+    "cover": "media/nk.jpg",
+    "date": "13.11.2026",
+    "description": "Он снова опоздал на пару",
+    "lyrics": "",
+    "links": {
+      "spotify": "",
+      "yandex": "",
+      "vk": "",
+      "apple": "",
+      "youtube": "https://youtu.be/c9sIktebAGo"
+    }
   }
 ]
