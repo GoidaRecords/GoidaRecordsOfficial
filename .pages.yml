@@ -3,10 +3,10 @@ media:
   output: media
 
 content:
-  - name: releases
+  - name: release
     label: Релизы
     type: file
-    path: releases.json
+    path: release.json
     fields:
       - name: id
         label: ID (латиницей, без пробелов)
